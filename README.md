@@ -25,4 +25,11 @@ develop->>main: merge
 - 함수(function) :  **스네이크 케이스** ex) get_host, make_user
 
 ## Library
+
+- pip : 24.3.1
+- PySide6 : 6.8.1.1
+- packaging : 24.2
+
 ## Environment
+
+- python : 3.13.0 64bit

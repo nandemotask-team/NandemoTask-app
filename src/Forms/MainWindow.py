@@ -4,6 +4,7 @@ from ui.MainWindow_ui import Ui_MainWindow
 
 from src.Forms.Setting_Form import Setting_Form
 from src.Forms.AddNewTask_Form import AddNewTask_Form
+from src.Forms.Extension_Form import Extension_Form
 
 from src.DataControl.AddressData import return_task_address
 from src.DataControl.TaskInfoData import return_task_info_data
@@ -19,6 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionAdd_New_Task.triggered.connect(self.actionAdd_New_Task_f)
         self.actionStop_All.setStatusTip('stop all task')
         self.actionExtension.setStatusTip('Extension')
+        self.actionExtension.triggered.connect(self.actionExtension_f)
         self.actionAccount.setStatusTip('account management')
         self.actionSetting.setStatusTip('Nandemo Task App Setting')
         self.actionSetting.triggered.connect(self.actionSetting_f)
@@ -26,10 +28,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionRefresh.triggered.connect(self.reset)
 
         # Task List 세팅
-        tasksAddress = return_task_address()
-        self.myTaskList = os.listdir(tasksAddress)
-        for i in self.myTaskList:
-            self.Task_ListWidget.addItem(f"off | {i}")
+        try:
+            tasksAddress = return_task_address()
+            self.myTaskList = os.listdir(tasksAddress)
+            for i in self.myTaskList:
+                self.Task_ListWidget.addItem(f"off | {i}")
+        except:
+            pass
         self.Task_ListWidget.itemDoubleClicked.connect(self.Task_ListWidget_f)
         self.Task_ListWidget.customContextMenuRequested.connect(self.Task_ListWidget_context_menu_f)
     
@@ -126,6 +131,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ANTForm = AddNewTask_Form()
         ANTForm.show()
         ANTForm.exec_()
+    
+    def actionExtension_f(self):
+        EForm = Extension_Form()
+        EForm.show()
+        EForm.exec_()
 
     def actionSetting_f(self):
         SettingForm = Setting_Form()
